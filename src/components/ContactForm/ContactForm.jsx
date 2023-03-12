@@ -1,7 +1,6 @@
 import { useState } from "react";
 import shortid from "shortid";
 import css from 'components/ContactForm/ContactForm.module.css';
-import PropTypes from 'prop-types';
 import { addContact } from 'redux/contactSlice';
 import { getContactsValue } from 'redux/selectors/selectors';
 import { useSelector, useDispatch } from 'react-redux';
@@ -41,7 +40,7 @@ export const ContactForm = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-    const userName = contacts.find(user => user.name === name);
+        const userName = contacts.find(user => user.name.toLocaleLowerCase() === name.toLowerCase());
     if (userName) {
       alert(`${name} is already in contacs`);
     } else {
@@ -99,14 +98,4 @@ export const ContactForm = () => {
             
             </form>
         );
-};
-
-ContactForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    })
-  ),
 };
